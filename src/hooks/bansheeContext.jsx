@@ -32,6 +32,7 @@ export const BansheeProvider = ({ children }) => {
         created_at: `${date.getFullYear()}-${
           date.getMonth() + 1
         }-${date.getDate()}`,
+        category: mealData.category,
       },
     ]);
   };
@@ -41,6 +42,7 @@ export const BansheeProvider = ({ children }) => {
     setCategorys([
       ...categorys,
       {
+        title: categoryData.title,
         id: categorys.length + 1,
         meals: [],
         ...categoryData,

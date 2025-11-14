@@ -11,7 +11,9 @@ function App() {
     <Box className="App"       
       display="flex"
       justifyContent={"space-around"}
-      alignItems={"center"}>
+      alignItems={"center"}
+      dir={"rtl"}>
+        <SidBar />
       <Box 
       w="79%"
       h="98vh"
@@ -27,7 +29,6 @@ function App() {
         </Routes>
         </SlideFade>
       </Box>
-      <SidBar />
     </Box>
   );
 }

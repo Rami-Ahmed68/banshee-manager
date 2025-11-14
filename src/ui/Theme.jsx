@@ -49,7 +49,7 @@ export const theme = extendTheme({
       },
       "bg-card": {
         default: "#efefefec",
-        _dark: "#2c2b2bff",
+        _dark: "#303030ee",
       },
       "bg-card-status": {
         default: "#d0d0d0ec",
