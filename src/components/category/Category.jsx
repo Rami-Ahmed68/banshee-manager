@@ -1,7 +1,18 @@
 import { Box, Heading, Text, VStack, Badge, Icon } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { useContext } from "react";
+import { BansheeContext } from "../../hooks/bansheeContext";
 
 function Category({ data }) {
+  const { fMeals, setCategorMealsList, filter_meals } =
+    useContext(BansheeContext);
+
+  const handelFilterMeals = () => {
+    console.log(fMeals);
+    setCategorMealsList(data);
+    filter_meals(data.id);
+  };
+
   return (
     <Box
       w={"100%"}
@@ -15,9 +26,12 @@ function Category({ data }) {
         transform: "scale(1.001)",
         shadow: "lg",
         bg: "bg-card-status",
-      }}
-      cursor="pointer">
-      <Heading size="md" mb={3}>
+      }}>
+      <Heading
+        size="md"
+        mb={3}
+        cursor="pointer"
+        onClick={() => handelFilterMeals()}>
         {data.title}
       </Heading>
 
@@ -41,6 +55,11 @@ function Category({ data }) {
             {data.created_at}
           </Badge>
         </Text>
+
+        <Box w={"100%"} h="auto" cursor={"pointer"}>
+          <Icon as={EditIcon} color="info" m={"0px 7px"} />
+          <Icon as={DeleteIcon} color="error" m={"0px 7px"} />
+        </Box>
       </VStack>
     </Box>
   );

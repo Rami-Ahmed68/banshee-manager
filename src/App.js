@@ -4,6 +4,7 @@ import SidBar from "./components/global/SidBarComponent";
 import { Box  , SlideFade } from "@chakra-ui/react";
 import AddMeal from "./views/AddMeal";
 import AddCategory from "./views/AddCategory";
+import Payments from "./views/Payments";
 function App() {
   const location = useLocation();
 
@@ -18,6 +19,7 @@ function App() {
       w="79%"
       h="98vh"
       m="1vh 0%"
+      overflowY={"scroll"}
       bg="bg-secondary"
       
       borderRadius={"5px"}>
@@ -26,6 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/add-meal" element={<AddMeal />} />
           <Route path="/add-category" element={<AddCategory />} />
+          <Route path="/payments" element={<Payments />} />
         </Routes>
         </SlideFade>
       </Box>

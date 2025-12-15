@@ -22,13 +22,24 @@ export default function SidBar() {
       <Heading fontSize="xl" mb={4}>
         القائمة
       </Heading>
-      <VStack align="start" spacing={4}>
+      <VStack align="start">
         {links.map((link) => (
           <ChakraLink
+            w="100%"
+            h="40px"
+            display={"flex"}
+            justifyContent={"start"}
+            alignItems={"center"}
+            borderRadius={"5px"}
+            p={"3px 5px"}
+            transitionDuration={"0.5s"}
             as={Link}
             to={link.path}
             key={link.title}
-            _hover={{ color: "yellow", textDecoration: "none" }}>
+            _hover={{
+              color: "white",
+              backgroundColor: "#333",
+            }}>
             {link.title}
           </ChakraLink>
         ))}
