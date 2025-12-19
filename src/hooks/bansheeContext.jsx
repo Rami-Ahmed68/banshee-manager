@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 
 export const BansheeContext = createContext();
 
+const date = new Date();
+
 export const BansheeProvider = ({ children }) => {
   const [meals, setMeals] = useState(
     () => JSON.parse(window.localStorage.getItem("banshee-meals")) || []
@@ -12,6 +14,10 @@ export const BansheeProvider = ({ children }) => {
   );
 
   const [categorMealsList, setCategorMealsList] = useState([]);
+
+  const [payments, setPayments] = useState(
+    () => JSON.parse(window.localStorage.getItem("banshee-payments")) || []
+  );
 
   useEffect(() => {
     window.localStorage.setItem("banshee-meals", JSON.stringify(meals));
@@ -24,8 +30,40 @@ export const BansheeProvider = ({ children }) => {
     );
   }, [categorys]);
 
+  useEffect(() => {
+    window.localStorage.setItem("banshee-payments", JSON.stringify(payments));
+  }, [payments]);
+
+  const AddPayment = (paymentData) => {
+    const newPayment = {
+      id: payments.length + 1,
+      title: paymentData.title,
+      price: paymentData.price,
+      description: paymentData.description,
+      status: paymentData.status,
+      created_at: `${date.getFullYear()}-${
+        date.getMonth() + 1
+      }-${date.getDate()}`,
+    };
+
+    setPayments([...payments, newPayment]);
+  };
+
+  const DeletePayment = (payment_id) => {
+    const newPaymentsList = payments.filter((pay) => pay.id !== payment_id);
+    setPayments(newPaymentsList);
+  };
+
+  const ChangePaymentStatus = (payment_id) => {
+    const newPaymentList = payments.map((pay) =>
+      pay.id === payment_id ? { ...pay, status: !pay.status } : pay
+    );
+
+    setPayments(newPaymentList);
+  };
+
   // const AddMeal = (mealData) => {
-  //   const date = new Date();
+
   //   setMeals([
   //     ...meals,
   //     {
@@ -52,8 +90,6 @@ export const BansheeProvider = ({ children }) => {
   };
 
   const AddMeal = (mealData) => {
-    const date = new Date();
-
     const newMealId = meals.length + 1;
 
     const newMeal = {
@@ -81,7 +117,6 @@ export const BansheeProvider = ({ children }) => {
   };
 
   const AddCategory = (categoryData) => {
-    const date = new Date();
     setCategorys([
       ...categorys,
       {
@@ -105,6 +140,10 @@ export const BansheeProvider = ({ children }) => {
     categorMealsList,
     setCategorMealsList,
     filter_meals,
+    AddPayment,
+    payments,
+    DeletePayment,
+    ChangePaymentStatus,
   };
 
   return (

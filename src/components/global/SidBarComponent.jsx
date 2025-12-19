@@ -7,7 +7,7 @@ export default function SidBar() {
     { title: "المبيعات", path: "/sales" },
     { title: "إضافة وجبة", path: "/add-meal" },
     { title: "إضافة صنف", path: "/add-category" },
-    { title: "المدفوعات", path: "/payments" },
+    { title: "الفواتير", path: "/payments" },
   ];
 
   return (

@@ -38,7 +38,7 @@ function AddCategory() {
 
       showSuccess("🥳 تم إنشاء الصنف بنجاح");
 
-      setTitle(""); // ← فقط هذا يكفي لتنظيف الحقل
+      setTitle("");
     } catch (error) {
       showError("خطأ عام 🚨");
     } finally {
