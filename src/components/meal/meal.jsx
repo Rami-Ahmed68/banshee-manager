@@ -5,15 +5,16 @@ import {
   VStack,
   HStack,
   Badge,
-  Icon,
   Divider,
+  IconButton,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useContext } from "react";
 import { BansheeContext } from "../../hooks/bansheeContext";
 
 function Meal({ data }) {
-  const { fMeals } = useContext(BansheeContext);
+  const { fMeals, ChangeDelMealFormStatus, ChangeUpMealFormStatus } =
+    useContext(BansheeContext);
 
   const handelFilterMeals = () => {
     console.log(fMeals);
@@ -45,7 +46,7 @@ function Meal({ data }) {
           py={1}
           borderRadius="md"
           fontSize="sm">
-          {data.price} $
+          {data.price.toLocaleString()} $
         </Badge>
       </HStack>
 
@@ -66,18 +67,24 @@ function Meal({ data }) {
         </HStack>
 
         {/* Actions */}
-        <HStack w="100%" justify="flex-end" pt={2}>
-          <Icon
-            as={EditIcon}
-            color="info"
-            cursor="pointer"
+        <HStack w="100%" justify="flex-start" pt={2}>
+          <IconButton
+            icon={<EditIcon />}
+            size="sm"
+            m="0px 3px"
+            aria-label="Rotate"
+            colorScheme="blue"
             _hover={{ opacity: 0.8 }}
+            onClick={() => ChangeUpMealFormStatus(data.id)}
           />
-          <Icon
-            as={DeleteIcon}
-            color="error"
-            cursor="pointer"
+          <IconButton
+            icon={<DeleteIcon />}
+            size="sm"
+            m="0px 3px"
+            aria-label="Rotate"
+            colorScheme="red"
             _hover={{ opacity: 0.8 }}
+            onClick={() => ChangeDelMealFormStatus(data.id)}
           />
         </HStack>
       </VStack>

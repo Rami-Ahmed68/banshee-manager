@@ -1,4 +1,4 @@
-import { DeleteIcon, StarIcon, RepeatIcon } from "@chakra-ui/icons";
+import { DeleteIcon, RepeatIcon } from "@chakra-ui/icons";
 import {
   Box,
   Heading,

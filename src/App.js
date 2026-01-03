@@ -5,6 +5,10 @@ import { Box  , SlideFade } from "@chakra-ui/react";
 import AddMeal from "./views/AddMeal";
 import AddCategory from "./views/AddCategory";
 import Payments from "./views/Payments";
+import DeleteCategoryForm from "./components/category/forms/DeleteForm";
+import EditeCategoryForm from "./components/category/forms/EditeForm";
+import DeleteMealForm from "./components/meal/forms/DeleteForm";
+import EditeMealForm from "./components/meal/forms/EditeForm"
 function App() {
   const location = useLocation();
 
@@ -23,6 +27,12 @@ function App() {
       bg="bg-secondary"
       
       borderRadius={"5px"}>
+
+        <DeleteCategoryForm />
+        <EditeCategoryForm />
+
+        <DeleteMealForm />
+        <EditeMealForm />
         <SlideFade key={location.pathname} in={true} offsetY="20px">
         <Routes>
           <Route path="/" element={<Home />} />

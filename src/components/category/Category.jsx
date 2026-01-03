@@ -1,11 +1,24 @@
-import { Box, Heading, Text, VStack, Badge, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Badge,
+  IconButton,
+  HStack,
+} from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useContext } from "react";
 import { BansheeContext } from "../../hooks/bansheeContext";
 
 function Category({ data }) {
-  const { fMeals, setCategorMealsList, filter_meals } =
-    useContext(BansheeContext);
+  const {
+    fMeals,
+    setCategorMealsList,
+    filter_meals,
+    ChangeDelCategoryFormStatus,
+    ChangeUpdateCategoryFormStatus,
+  } = useContext(BansheeContext);
 
   const handelFilterMeals = () => {
     console.log(fMeals);
@@ -56,10 +69,26 @@ function Category({ data }) {
           </Badge>
         </Text>
 
-        <Box w={"100%"} h="auto" cursor={"pointer"}>
-          <Icon as={EditIcon} color="info" m={"0px 7px"} />
-          <Icon as={DeleteIcon} color="error" m={"0px 7px"} />
-        </Box>
+        <HStack w="100%" justify="flex-start" pt={2}>
+          <IconButton
+            icon={<EditIcon />}
+            size="sm"
+            m="0px 3px"
+            aria-label="Rotate"
+            colorScheme="blue"
+            _hover={{ opacity: 0.8 }}
+            onClick={() => ChangeUpdateCategoryFormStatus(data.id)}
+          />
+          <IconButton
+            icon={<DeleteIcon />}
+            size="sm"
+            m="0px 3px"
+            aria-label="Rotate"
+            colorScheme="red"
+            _hover={{ opacity: 0.8 }}
+            onClick={() => ChangeDelCategoryFormStatus(data.id)}
+          />
+        </HStack>
       </VStack>
     </Box>
   );
