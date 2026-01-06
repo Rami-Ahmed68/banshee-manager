@@ -11,6 +11,7 @@ import {
   Icon,
   VStack,
   Input,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { EditIcon, WarningTwoIcon } from "@chakra-ui/icons";
 import { useContext, useState, useEffect } from "react";
@@ -28,6 +29,7 @@ export default function EditCategoryForm() {
     useContext(BansheeContext);
   const { showSuccess, showError } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
+  const { isOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (mealUpForm && mealUpData) {
@@ -100,11 +102,12 @@ export default function EditCategoryForm() {
   };
 
   return (
-    <Modal isOpen={mealUpForm} onClose={handleCancel} isCentered>
+    <Modal isOpen={mealUpForm} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent bg="bg-card" dir="rtl">
         <ModalHeader>
           <Flex align="center" gap={3}>
+            <p>status is : {mealUpForm}</p>
             <Text>تعديل بيانات الوجبة</Text>
             <Icon as={WarningTwoIcon} w={6} h={6} color="yellow.500" />
           </Flex>

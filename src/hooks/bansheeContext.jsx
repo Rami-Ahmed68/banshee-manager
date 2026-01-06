@@ -31,7 +31,7 @@ export const BansheeProvider = ({ children }) => {
   const [mealForm, setMealForm] = useState(false);
   const [delMealId, setDelMealId] = useState("");
 
-  const [mealUpForm, setMealUpForm] = useState(true);
+  const [mealUpForm, setMealUpForm] = useState(false);
   const [upMealId, setUpMealId] = useState("");
   const [mealUpData, setMealUpData] = useState("");
   // meal's

@@ -9,6 +9,7 @@ import DeleteCategoryForm from "./components/category/forms/DeleteForm";
 import EditeCategoryForm from "./components/category/forms/EditeForm";
 import DeleteMealForm from "./components/meal/forms/DeleteForm";
 import EditeMealForm from "./components/meal/forms/EditeForm"
+import Sales from "./views/Sales";
 function App() {
   const location = useLocation();
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/add-meal" element={<AddMeal />} />
           <Route path="/add-category" element={<AddCategory />} />
           <Route path="/payments" element={<Payments />} />
+          <Route path="/sales" element={<Sales />} />
         </Routes>
         </SlideFade>
       </Box>
