@@ -10,6 +10,9 @@ import EditeCategoryForm from "./components/category/forms/EditeForm";
 import DeleteMealForm from "./components/meal/forms/DeleteForm";
 import EditeMealForm from "./components/meal/forms/EditeForm"
 import Sales from "./views/Sales";
+import GraphicalAnalysis from "./views/GraphicalAnalysis";
+import Save from "./views/Save";
+
 function App() {
   const location = useLocation();
 
@@ -41,6 +44,8 @@ function App() {
           <Route path="/add-category" element={<AddCategory />} />
           <Route path="/payments" element={<Payments />} />
           <Route path="/sales" element={<Sales />} />
+          <Route path="/ana" element={<GraphicalAnalysis />} />
+          <Route path="/save" element={<Save />} />
         </Routes>
         </SlideFade>
       </Box>

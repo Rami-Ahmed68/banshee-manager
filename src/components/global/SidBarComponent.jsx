@@ -3,11 +3,13 @@ import { Link } from "react-router-dom"; // ✅ استيراد من react-router
 
 export default function SidBar() {
   const links = [
-    { title: "الصفحة الرئيسية", path: "/" },
-    { title: "المبيعات", path: "/sales" },
-    { title: "إضافة وجبة", path: "/add-meal" },
-    { title: "إضافة صنف", path: "/add-category" },
-    { title: "الفواتير", path: "/payments" },
+    { title: "🏠 الصفحة الرئيسية", path: "/" },
+    { title: "💰 المبيعات", path: "/sales" },
+    { title: "🍽️ إضافة وجبة", path: "/add-meal" },
+    { title: "📁 إضافة صنف", path: "/add-category" },
+    { title: "🧾 الفواتير", path: "/payments" },
+    { title: "📉 التحليل البياني", path: "/ana" },
+    { title: "📥 حفظ", path: "/save" },
   ];
 
   return (

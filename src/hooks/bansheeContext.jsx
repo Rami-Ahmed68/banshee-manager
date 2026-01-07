@@ -19,6 +19,12 @@ export const BansheeProvider = ({ children }) => {
     () => JSON.parse(window.localStorage.getItem("banshee-payments")) || []
   );
 
+  const [sales, setSales] = useState(
+    () => JSON.parse(window.localStorage.getItem("banshee-sales")) || []
+  );
+
+  const [sale, setSale] = useState([]);
+
   // category's
   const [catForm, setCatForm] = useState(false);
   const [delCatId, setDelCatId] = useState("");
@@ -51,6 +57,9 @@ export const BansheeProvider = ({ children }) => {
     window.localStorage.setItem("banshee-payments", JSON.stringify(payments));
   }, [payments]);
 
+  useEffect(() => {
+    window.localStorage.setItem("banshee-sales", JSON.stringify(sales));
+  }, [sales]);
   const AddPayment = (paymentData) => {
     const newPayment = {
       id: payments.length + 1,
@@ -79,8 +88,39 @@ export const BansheeProvider = ({ children }) => {
     setPayments(newPaymentList);
   };
 
+  const AddSales = () => {
+    console.log(sales);
+    setSales([
+      ...sales,
+      {
+        index: sales.length + 1,
+        totalPrice: sale.reduce((acc, curr) => acc + (curr.totalPrice || 0), 0), // نفس الاسم totalPrice
+        products: sale.map((ele) => ele),
+        createdAt: new Date().toISOString(),
+      },
+    ]);
+
+    console.log(sales);
+  };
+
+  const ChooseProducts = (sale_data) => {
+    const newProduct = {
+      id: sale_data.id,
+      title: sale_data.title,
+      quantity: sale_data.quantity,
+      totalPrice: sale_data.totalPrice,
+      price: sale_data.price,
+    };
+
+    setSale((prevSale) => [...prevSale, newProduct]);
+    console.log(sale);
+  };
+
+  const DeleteOneProduct = (product_index) => {
+    setSale(sale.filter((ele, index) => index !== product_index));
+  };
+
   const filter_meals = (category_id) => {
-    console.log(`cat's id ${category_id}`);
     const selected_cat = categorys.find((cat) => cat.id === category_id);
 
     if (!selected_cat) return;
@@ -88,9 +128,7 @@ export const BansheeProvider = ({ children }) => {
     const filtered_meals = meals.filter((meal) =>
       selected_cat.meals.includes(meal.id)
     );
-
     console.log(filtered_meals);
-
     setCategorMealsList(filtered_meals);
   };
 
@@ -312,10 +350,6 @@ export const BansheeProvider = ({ children }) => {
       )
     );
 
-    console.log(
-      `UpdateCategory: Updated category ${upCatId} to "${trimmedTitle}"`
-    );
-
     return {
       success: true,
       changed: true,
@@ -366,6 +400,13 @@ export const BansheeProvider = ({ children }) => {
     ChangeUpMealFormStatus,
     mealUpData,
     UpdateMeal,
+    sales,
+    setSales,
+    sale,
+    setSale,
+    AddSales,
+    ChooseProducts,
+    DeleteOneProduct,
   };
 
   return (
