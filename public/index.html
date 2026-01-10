@@ -1,51 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#121212" />
-  <meta name="description" content="نظام إدارة المبيعات لأبو رامي" />
-  
-  <!-- رابط manifest -->
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  
-  <!-- iOS support -->
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <meta name="apple-mobile-web-app-status-bar" content="#121212" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  
-  <title>مبيعات أبو رامي</title>
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#007bff" />
-
+    <meta charset="utf-8" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="192x192" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="%PUBLIC_URL%/logo512.png" />
+    
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#121212" />
+    <meta name="description" content="نظام إدارة المبيعات لأبو رامي" />
+    
+    <!-- PWA Manifest - رابط واحد فقط -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" crossorigin="use-credentials" />
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="مبيعات أبو رامي" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    
+    <!-- Android PWA Support -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Windows PWA Support -->
+    <meta name="msapplication-TileColor" content="#121212" />
+    <meta name="msapplication-TileImage" content="%PUBLIC_URL%/logo144.png" />
+    <meta name="msapplication-config" content="%PUBLIC_URL%/browserconfig.xml" />
+    
+    <!-- Safari Pinned Tab -->
+    <link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#121212" />
+    
+    <!-- Title -->
+    <title>مبيعات أبو رامي</title>
+    
+    <!-- Service Worker Backup Registration -->
+    <script>
+      // كود احتياطي لتسجيل Service Worker
+      if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        window.addEventListener('load', function() {
+          // استخدم PUBLIC_URL لدعم المسارات النسبية
+          const swUrl = '<%= process.env.PUBLIC_URL %>' + '/service-worker.js';
+          
+          navigator.serviceWorker.register(swUrl || '/service-worker.js')
+            .then(function(registration) {
+              console.log('✅ Service Worker registered from HTML (backup)');
+              
+              // تحديث تلقائي كل ساعة
+              setInterval(function() {
+                registration.update();
+              }, 60 * 60 * 1000);
+            })
+            .catch(function(error) {
+              console.log('⚠️ Service Worker registration failed (HTML):', error);
+            });
+        });
+      }
+      
+      // الكشف عن وضع PWA
+      window.isPWA = function() {
+        return window.matchMedia('(display-mode: standalone)').matches || 
+               window.navigator.standalone === true ||
+               document.referrer.includes('android-app://');
+      };
+      
+      // إضافة class للجسم إذا كان PWA
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.isPWA()) {
+          document.body.classList.add('pwa-mode');
+          console.log('📱 Running in PWA mode');
+        }
+      });
+    </script>
+    
+    <!-- Preconnect for external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h1 style="color: #e53e3e;">⚠️ JavaScript مطلوب</h1>
+        <p>يحتاج هذا التطبيق إلى تفعيل JavaScript للعمل بشكل صحيح.</p>
+        <p>Please enable JavaScript to run this app.</p>
+      </div>
+    </noscript>
+    
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
+    <!-- Fallback for older browsers -->
+    <script>
+      // Check for ES6 support
+      if (typeof Symbol === 'undefined' || 
+          typeof Promise === 'undefined' ||
+          typeof Array.from === 'undefined') {
+        document.getElementById('root').innerHTML = 
+          '<div style="padding: 20px; text-align: center;">' +
+          '<h2>🚫 متصفح غير مدعوم</h2>' +
+          '<p>يرجى استخدام متصفح حديث مثل Chrome, Firefox, Edge أو Safari</p>' +
+          '</div>';
+      }
+    </script>
+    
+    <!-- PWA Installation Prompt -->
+    <script>
+      // Prompt for PWA installation
+      let deferredPrompt;
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+        
+        // Show custom install button if needed
+        console.log('📲 PWA installation available');
+        
+        // Optional: Show your own install button
+        setTimeout(() => {
+          if (deferredPrompt && !window.isPWA()) {
+            const shouldInstall = confirm('هل تريد تثبيت تطبيق "مبيعات أبو رامي" على جهازك؟');
+            if (shouldInstall) {
+              deferredPrompt.prompt();
+              deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                  console.log('✅ User accepted PWA installation');
+                } else {
+                  console.log('❌ User dismissed PWA installation');
+                }
+                deferredPrompt = null;
+              });
+            }
+          }
+        }, 5000); // بعد 5 ثواني
+      });
+      
+      // Track app installation
+      window.addEventListener('appinstalled', (evt) => {
+        console.log('🎉 PWA was installed successfully');
+        // Optional: Send analytics event
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pwa_installed');
+        }
+      });
+    </script>
   </body>
 </html>
