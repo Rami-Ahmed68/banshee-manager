@@ -6,7 +6,7 @@ export const theme = extendTheme({
     useSystemColorMode: false,
   },
 
-  color: {
+  colors: {
     primary: {
       50: "#e6f3ff",
       100: "#cce7ff",
