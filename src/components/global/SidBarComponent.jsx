@@ -6,10 +6,11 @@ export default function SidBar() {
     { title: "🏠 الصفحة الرئيسية", path: "/" },
     { title: "💰 المبيعات", path: "/sales" },
     { title: "🍽️ إضافة وجبة", path: "/add-meal" },
-    { title: "📁 إضافة صنف", path: "/add-category" },
+    { title: "➕ إضافة صنف", path: "/add-category" },
     { title: "🧾 الفواتير", path: "/payments" },
-    { title: "📉 التحليل البياني", path: "/ana" },
     { title: "📥 حفظ", path: "/save" },
+    { title: "📂 فتح ملف", path: "/open" },
+    { title: "📥 تنزيل التطبيق", path: "/install" },
   ];
 
   return (
