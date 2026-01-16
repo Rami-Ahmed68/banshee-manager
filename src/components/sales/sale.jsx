@@ -15,7 +15,7 @@ import { useContext, useState } from "react";
 import { BansheeContext } from "../../hooks/bansheeContext";
 
 export default function Sale({ data }) {
-  const { sales, setSales } = useContext(BansheeContext);
+  const { setSales } = useContext(BansheeContext); // تم إزالة sales
   const [isExpanded, setIsExpanded] = useState(false);
 
   // تنسيق التاريخ
@@ -36,16 +36,30 @@ export default function Sale({ data }) {
     }
   };
 
-  // تنسيق العملة
+  // تنسيق العملة (محسّن للتعامل مع الأخطاء)
   const formatCurrency = (amount) => {
-    return amount?.toLocaleString() || "0";
+    try {
+      const num = Number(amount);
+      if (isNaN(num) || num === 0) return "0";
+      return num.toLocaleString();
+    } catch (error) {
+      return "0";
+    }
+  };
+
+  // حساب السعر الإجمالي لمنتج
+  const calculateProductTotal = (product) => {
+    if (product.totalPrice) return product.totalPrice;
+    const price = Number(product.price) || 0;
+    const quantity = Number(product.quantity) || 1;
+    return price * quantity;
   };
 
   // حساب إجمالي عدد القطع
   const calculateTotalItems = () => {
     if (!data.products || !Array.isArray(data.products)) return 0;
     return data.products.reduce(
-      (total, product) => total + (product.quantity || 1),
+      (total, product) => total + (Number(product.quantity) || 1),
       0
     );
   };
@@ -54,7 +68,7 @@ export default function Sale({ data }) {
   const calculateTotalPrice = () => {
     if (!data.products || !Array.isArray(data.products)) return 0;
     return data.products.reduce(
-      (total, product) => total + (product.totalPrice || 0),
+      (total, product) => total + calculateProductTotal(product),
       0
     );
   };
@@ -83,7 +97,7 @@ export default function Sale({ data }) {
       minH={isExpanded ? "300px" : "200px"}
       p={4}
       borderRadius="lg"
-      bg="bg-card" // اللون الأصلي
+      bg="bg-card"
       transition="all 0.2s"
       boxShadow="0px 3px 5px black"
       _hover={{
@@ -137,7 +151,7 @@ export default function Sale({ data }) {
           <VStack align="stretch" spacing={2}>
             {getProductSummary().map((product, index) => (
               <HStack
-                key={index}
+                key={product.id || product._id || index}
                 justify="space-between"
                 p={2}
                 bg="whiteAlpha.100"
@@ -150,10 +164,7 @@ export default function Sale({ data }) {
                     {product.quantity}×
                   </Badge>
                   <Text fontSize="sm" color="green.300" fontWeight="medium">
-                    {formatCurrency(
-                      product.totalPrice || product.price * product.quantity
-                    )}{" "}
-                    ر.س
+                    {formatCurrency(calculateProductTotal(product))} ر.س
                   </Text>
                 </HStack>
               </HStack>
@@ -228,7 +239,7 @@ export default function Sale({ data }) {
               <VStack align="stretch" spacing={2}>
                 {data.products?.map((product, index) => (
                   <HStack
-                    key={index}
+                    key={product.id || product._id || index}
                     justify="space-between"
                     p={2}
                     bg="blackAlpha.300"
@@ -246,10 +257,7 @@ export default function Sale({ data }) {
                         {product.quantity}×
                       </Badge>
                       <Badge colorScheme="green" fontSize="xs" px={2}>
-                        {formatCurrency(
-                          product.totalPrice || product.price * product.quantity
-                        )}{" "}
-                        ر.س
+                        {formatCurrency(calculateProductTotal(product))} ر.س
                       </Badge>
                     </HStack>
                   </HStack>
