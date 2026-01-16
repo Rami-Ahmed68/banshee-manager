@@ -111,9 +111,9 @@ export default function Home() {
         </Box>
 
         {/* Second Column - Meals Grid */}
-        <Box gridColumn="span 4" h="90vh" overflowY="auto">
+        <Box gridColumn="span 5" h="90vh" overflowY="auto">
           <VStack
-            spacing={1}
+            spacing={4}
             p={4}
             bg="bg-card"
             h="100%"
@@ -122,17 +122,20 @@ export default function Home() {
             transition="all 0.3s ease"
             _hover={{ boxShadow: "xl" }}
             overflowY="auto">
-            {mealsList.map((meal) => (
-              <ShowMeal data={meal} key={meal.id || meal._id} />
-            ))}
+            <SimpleGrid columns={2} spacing={4} w="100%">
+              {mealsList.map((meal) => (
+                <ShowMeal data={meal} key={meal.id || meal._id} />
+              ))}
+            </SimpleGrid>
+
             {mealsList.length === 0 && (
               <Box
                 w="90%"
                 p="4px"
                 bg="bg-card"
                 borderRadius="3px"
-                gridColumn="1 / -1"
-                textAlign="center">
+                textAlign="center"
+                mt={4}>
                 🤷‍♂️لا توجد وجبات في هذه الفئة🤷‍♂️
               </Box>
             )}
@@ -144,7 +147,7 @@ export default function Home() {
           bg="bg-card"
           h="90vh"
           spacing={2}
-          gridColumn="span 4"
+          gridColumn="span 3"
           p={4}
           borderRadius="lg"
           boxShadow="lg"

@@ -25,7 +25,7 @@ function App() {
       dir={"rtl"}>
         <SidBar />
       <Box 
-      w="79%"
+      w="84%"
       h="98vh"
       m="1vh 0%"
       overflowY={"scroll"}

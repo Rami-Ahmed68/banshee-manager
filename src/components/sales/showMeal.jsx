@@ -105,7 +105,7 @@ function ShowMeal({ data }) {
           <HStack>
             <IconButton
               icon={<MinusIcon />}
-              size="xs"
+              size="md"
               aria-label="تقليل الكمية"
               colorScheme="red"
               isDisabled={quantity < 1}
@@ -115,7 +115,7 @@ function ShowMeal({ data }) {
             <Input
               value={quantity}
               onChange={handleQuantityChange}
-              size="sm"
+              size="md"
               width="60px"
               textAlign="center"
               bg="white"
@@ -126,7 +126,7 @@ function ShowMeal({ data }) {
 
             <IconButton
               icon={<AddIcon />}
-              size="xs"
+              size="md"
               aria-label="زيادة الكمية"
               colorScheme="blue"
               onClick={increaseQuantity}

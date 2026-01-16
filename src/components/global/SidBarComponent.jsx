@@ -26,7 +26,7 @@ export default function SidBar() {
 
   return (
     <Box
-      w="20%"
+      w="15%"
       h="98vh"
       m="1vh 0%"
       color="white"
