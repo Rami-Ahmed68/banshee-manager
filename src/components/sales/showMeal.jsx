@@ -57,9 +57,9 @@ function ShowMeal({ data }) {
       p={5}
       borderRadius="md"
       bg="bg-card"
-      color="white"
       shadow="md"
       transition="0.2s"
+      color="text-theme"
       _hover={{
         transform: "scale(1.01)",
         shadow: "lg",

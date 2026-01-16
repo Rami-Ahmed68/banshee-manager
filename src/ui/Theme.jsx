@@ -39,6 +39,10 @@ export const theme = extendTheme({
         default: "white",
         _dark: "black",
       },
+      "text-theme": {
+        default: "black",
+        _dark: "white",
+      },
       "bg-primary": {
         default: "primary.500",
         _dark: "primary.600",

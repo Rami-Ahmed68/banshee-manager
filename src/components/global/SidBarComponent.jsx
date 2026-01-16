@@ -54,6 +54,7 @@ export default function SidBar() {
               as={Link}
               to={link.path}
               key={link.title}
+              color="text-theme"
               _hover={{
                 color: "white",
                 backgroundColor: "#333",
