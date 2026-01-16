@@ -7,7 +7,6 @@ import {
   VStack,
   HStack,
   Divider,
-  SimpleGrid,
   Collapse,
   Button,
 } from "@chakra-ui/react";
@@ -76,7 +75,6 @@ export default function Sale({ data }) {
   const totalItems = calculateTotalItems();
   const totalPrice = calculateTotalPrice() || data.totalPrice || 0;
   const productCount = data.products?.length || 0;
-  const firstProduct = data.products?.[0];
 
   return (
     <Box
